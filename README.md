@@ -1,1 +1,1 @@
-# for_aws_codepipeline
+# for_aws_auto_deploy
