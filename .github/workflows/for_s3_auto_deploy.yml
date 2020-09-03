@@ -1,0 +1,23 @@
+name: Upload To S3
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
+      S3_UPLOAD_BUCKET: ${{ secrets.S3_UPLOAD_BUCKET }}
+    
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Upload   
+        uses: actions/aws/cli@master
+        with:
+          args: s3 sync dist/ s3://$S3_UPLOAD_BUCKET
+        
