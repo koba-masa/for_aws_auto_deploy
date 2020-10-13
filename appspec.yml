@@ -1,0 +1,25 @@
+# https://docs.aws.amazon.com/ja_jp/codedeploy/latest/userguide/application-revisions-appspec-file.html
+
+# CodeDeployの予約語「0.0」
+version: 0.0
+
+# 
+os: linux
+#os: windows
+
+# https://docs.aws.amazon.com/ja_jp/codedeploy/latest/userguide/reference-appspec-file-structure-files.html
+files:
+  - source: index.html
+    destination: /var/www/html
+
+# https://docs.aws.amazon.com/ja_jp/codedeploy/latest/userguide/reference-appspec-file-structure-permissions.html
+#permissions:
+
+# https://docs.aws.amazon.com/ja_jp/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html
+hooks:
+  ApplicationStop:
+  AfterInstall:
+  ApplicationStart:
+    - location: script/ApplicationStart.sh
+      timeout: 300
+      runas: ec2-user
